@@ -346,6 +346,9 @@ TYPEINFO_DEF(/obj/item/radio)
 
 /obj/item/radio/proc/backup_transmission(datum/signal/subspace/vocal/signal)
 	var/turf/T = get_turf(src)
+	if(!T)
+		return
+
 	if (signal.data["done"] && (T.z in signal.levels))
 		return
 
@@ -596,3 +599,11 @@ TYPEINFO_DEF(/obj/item/radio)
 /obj/item/radio/off // Station bounced radios, their only difference is spawning with the speakers off, this was made to help the lag.
 	dog_fashion = /datum/dog_fashion/back
 	should_be_listening = FALSE
+
+/// An internal type to give to machines, please stop giving machines the AI's headset.
+/obj/item/radio/internal
+	command = TRUE
+
+/obj/item/radio/internal/Initialize(mapload)
+	keyslot = new /obj/item/encryptionkey/all_station(src)
+	. = ..()

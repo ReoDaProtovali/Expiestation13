@@ -278,8 +278,11 @@ TYPEINFO_DEF(/obj/item/radio/headset)
 
 /obj/item/radio/headset/silicon/ai
 	name = "\proper Integrated Subspace Transceiver "
-	keyslot2 = new /obj/item/encryptionkey/ai
 	command = TRUE
+
+/obj/item/radio/headset/silicon/ai/Initialize(mapload)
+	keyslot2 = new /obj/item/encryptionkey/ai(src)
+	. = ..()
 
 /obj/item/radio/headset/screwdriver_act(mob/living/user, obj/item/tool)
 	user.set_machine(src)

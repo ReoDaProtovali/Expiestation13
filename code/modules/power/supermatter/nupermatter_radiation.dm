@@ -49,7 +49,7 @@
 
 	radiation_pulse(
 		src,
-		max_range = 8,
+		max_range = radiation_range,
 		threshold = threshold,
 		chance = chance * 100,
 	)

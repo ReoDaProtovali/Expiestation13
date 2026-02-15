@@ -433,7 +433,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	disable()
 	investigate_log("was turned off by blackout event or a gravity anomaly detonation.", INVESTIGATE_GRAVITY)
 
-/obj/machinery/gravity_generator/main/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
+/obj/machinery/gravity_generator/main/hypotheticalShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
 	. = ..()
 	disable()
 

@@ -317,10 +317,12 @@ Used by the AI doomsday and the self-destruct nuke.
 	if (!length(traits))  // null or empty - default
 		for (var/i in 1 to total_z)
 			traits += list(default_traits)
+
 	else if (total_z != traits.len)  // mismatch
 		INIT_ANNOUNCE("WARNING: [traits.len] trait sets specified for [total_z] z-levels in [path]!")
 		if (total_z < traits.len)  // ignore extra traits
 			traits.Cut(total_z + 1)
+
 		while (total_z > traits.len)  // fall back to defaults on extra levels
 			traits += list(default_traits)
 

@@ -167,6 +167,9 @@
 
 
 	message_loc = isturf(target) ? target : get_atom_on_turf(target)
+	if(isnull(message_loc))
+		qdel(src)
+		return
 
 	// Build message image
 	message = new /image{
@@ -216,6 +219,7 @@
 		//if(ismob(message_loc)) // If this proc starts getting $$$, re-add this check
 		var/turf/message_turf = get_turf(message_loc)
 		var/list/turfs2check = block(locate(max(message_turf.x-4, 1), message_turf.y, message_turf.z), locate(min(message_turf.x+4, world.maxx), message_turf.y, message_turf.z)) - message_turf
+
 		for(var/turf/T as anything in turfs2check)
 			var/mob/living/L = locate() in T
 			if(!isnull(L))

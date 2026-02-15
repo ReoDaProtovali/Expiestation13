@@ -410,8 +410,6 @@
 	default_skin = "mining"
 	armor = list(BLUNT = 30, PUNCTURE = 10, SLASH = 0, LASER = 25, ENERGY = 10, BOMB = 30, BIO = 100, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF|LAVA_PROOF
-	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 5
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
 	allowed_suit_storage = list(

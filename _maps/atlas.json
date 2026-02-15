@@ -7,11 +7,13 @@
 	"run_mapping_tests": true,
 	"traits": [
 		{
-			"Gravity": 1
+			"Gravity": 1,
+			"Linkage": "Cross"
 		}
 	],
 	"shuttles": {
-		"emergency": "emergency_goon"
+		"emergency": "emergency_goon",
+		"cargo": "cargo_atlas"
 	},
 	"disable_headset_common": true
 }

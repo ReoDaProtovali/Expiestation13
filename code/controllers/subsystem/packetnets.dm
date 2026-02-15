@@ -88,7 +88,7 @@ SUBSYSTEM_DEF(packets)
 	gprs_broadcast_packet = random_string(rand(16,32), GLOB.hex_characters)
 	pda_exploitable_register = pick_list(PACKET_STRING_FILE, "packet_field_names")
 
-	virtual_radio = new /obj/item/radio/headset/silicon/ai
+	virtual_radio = new /obj/item/radio/internal
 	. = ..()
 
 /datum/controller/subsystem/packets/Recover()

@@ -131,13 +131,13 @@
 			return DOCKING_NULL_SOURCE
 
 		var/area/old_area = oldT.loc
-		var/move_mode = old_area.beforeShuttleMove(shuttle_areas) //areas
+		var/move_mode = old_area.hypotheticalShuttleMove(shuttle_areas) //areas
 
 		for(var/atom/movable/moving_atom as anything in oldT.contents)
 			CHECK_TICK
 			if(moving_atom.loc != oldT) //fix for multi-tile objects
 				continue
-			move_mode = moving_atom.beforeShuttleMove(newT, rotation, move_mode, src) //atoms
+			move_mode = moving_atom.hypotheticalShuttleMove(newT, rotation, move_mode, src) //atoms
 
 		move_mode = oldT.fromShuttleMove(newT, move_mode) //turfs
 		move_mode = newT.toShuttleMove(oldT, move_mode, src) //turfs
@@ -148,6 +148,27 @@
 		old_turfs[oldT] = move_mode
 
 /obj/docking_port/mobile/proc/takeoff(list/old_turfs, list/new_turfs, list/moved_atoms, rotation, movement_direction, old_dock, area/underlying_old_area)
+	// Pre-movement actions.
+	for(var/i in 1 to old_turfs.len)
+		var/turf/oldT = old_turfs[i]
+		var/turf/newT = new_turfs[i]
+		var/move_mode = old_turfs[oldT]
+
+		// beforeShuttleMove() calls
+		if(move_mode & MOVE_TURF)
+			oldT.beforeShuttleMove(newT, movement_force, movement_direction)
+
+		if(move_mode & MOVE_AREA)
+			var/area/shuttle_area = oldT.loc
+			shuttle_area.beforeShuttleMove(oldT, newT, underlying_old_area)
+
+		if(move_mode & MOVE_CONTENTS)
+			for(var/atom/movable/moving_atom as anything in oldT)
+				if(moving_atom.loc != oldT) //fix for multi-tile objects
+					continue
+				moving_atom.beforeShuttleMove(newT, oldT, movement_force, movement_direction, old_dock, src, rotation)
+
+	// Perform movement.
 	for(var/i in 1 to old_turfs.len)
 		var/turf/oldT = old_turfs[i]
 		var/turf/newT = new_turfs[i]
@@ -161,8 +182,7 @@
 			shuttle_area.onShuttleMove(oldT, newT, underlying_old_area) //areas
 
 		if(move_mode & MOVE_CONTENTS)
-			for(var/k in oldT)
-				var/atom/movable/moving_atom = k
+			for(var/atom/movable/moving_atom as anything in oldT)
 				if(moving_atom.loc != oldT) //fix for multi-tile objects
 					continue
 				moving_atom.onShuttleMove(newT, oldT, movement_force, movement_direction, old_dock, src) //atoms

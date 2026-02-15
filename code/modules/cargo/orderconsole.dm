@@ -51,7 +51,7 @@
 
 /obj/machinery/computer/cargo/Initialize(mapload)
 	. = ..()
-	radio = new /obj/item/radio/headset/headset_cargo(src)
+	radio = new /obj/item/radio/internal(src)
 
 /obj/machinery/computer/cargo/Destroy()
 	QDEL_NULL(radio)
