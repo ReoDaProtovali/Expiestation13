@@ -11,5 +11,5 @@
 	taste_mult = 100 //Considering how severely this affects you. You need to taste this
 
 /datum/reagent/mindwipe/affect_blood(mob/living/carbon/C, removed)
-	. = ..()
-	
+	C.apply_status_effect(/datum/status_effect/mindwiped)
+
